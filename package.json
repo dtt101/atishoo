@@ -1,0 +1,39 @@
+{
+  "name": "atishoo",
+  "version": "1.0.0",
+  "description": "API for powering up your github issues",
+  "author": "David Thompson",
+  "license": "ISC",
+  "main": "app/index.js",
+  "scripts": {
+    "pretest": "./node_modules/.bin/jshint . --exclude node_modules/",
+    "start": "node .",
+    "test": "./node_modules/.bin/mocha --recursive",
+    "dev": "nodemon ."
+  },
+  "engines": {
+    "iojs": "2.5.0"
+  },
+  "dependencies": {
+    "babel": "^5.8.3",
+    "bluebird": "^2.9.34",
+    "dotenv": "^1.2.0",
+    "koa": "^0.21.0",
+    "koa-router": "^5.1.2",
+    "koa-cors": "0.0.16",
+    "lodash": "^3.10.0",
+    "mongodb": "^2.0.40",
+    "request": "^2.60.0"
+  },
+  "devDependencies": {
+    "co": "^4.6.0",
+    "jshint": "^2.8.0",
+    "mocha": "^2.2.5",
+    "proxyquire": "^1.6.0",
+    "sinon": "^1.15.4"
+  },
+  "jshintConfig": {
+    "esnext": true,
+    "noyield": true
+  }
+}
