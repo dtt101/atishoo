@@ -32,10 +32,8 @@ let connect = bb.promisify(function(cb) {
 });
 
 export function* get(ids) {
-  let db = yield connect(),
-    issues = yield db.findOne( { github_id: { $in: ids } } );
-  console.log('issues: ');
-  console.log(issues);
+  let db = yield connect();
+  let issues = yield db.find( { github_id: { $in: ids } } ).toArray();
   if (issues) {
     return issues;
   }
