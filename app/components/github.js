@@ -20,8 +20,8 @@ export function* getIssues() {
   let github = yield * getClient();
   let repoIssues = promisify(github.issues.repoIssues);
   let issues = yield repoIssues({
-      user: "dtt101",
-      repo: "atishoo"
+      user: "dtt101", // TODO: move user to config
+      repo: "atishoo" // TODO: get repo from parameters/url
   });
   return issues;
 }

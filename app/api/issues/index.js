@@ -1,12 +1,10 @@
 import koarouter from 'koa-router';
-import * as github from '../../components/github';
+import augment from './augment';
+import all from './all';
 
 let router = new koarouter();
 
-router.get('/', function* (next) {
-  let issues = yield github.getIssues();
-  this.body = issues;
-  yield next;
-});
+router.use('/', augment);
+router.get('/', all);
 
 export default router;
