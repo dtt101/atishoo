@@ -28,3 +28,9 @@ npm test
 ## Prod
 
 TODO
+
+## Tasks
+
+ * Add middleware to augment issues with extra data from DB.
+ * Endpoint to save extra data for an issue
+ * Support multiple repos (front-end?)
