@@ -18,9 +18,10 @@
     "babel": "^5.8.3",
     "bluebird": "^2.9.34",
     "dotenv": "^1.2.0",
+    "github": "^0.2.4",
     "koa": "^1.0.0",
-    "koa-router": "^5.1.2",
     "koa-cors": "0.0.16",
+    "koa-router": "^5.1.2",
     "lodash": "^3.10.0",
     "mongodb": "^2.0.40",
     "request": "^2.60.0"
