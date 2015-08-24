@@ -1,39 +1,14 @@
 import config from '../config';
-import * as bb from 'bluebird';
-import {
-  parse
-}
-from 'url';
-import mongodb from 'mongodb';
+import { parse } from 'url';
+import monk from 'monk';
+import wrap from 'co-monk';
 
-let MongoClient = mongodb.MongoClient,
-  Collection = mongodb.Collection;
-
-bb.promisifyAll(MongoClient);
-bb.promisifyAll(Collection);
-
-let url = parse(config['mongo-url']),
-  expireAfterSeconds = isNaN(parseInt(config['mongo-cache-seconds'])) ? 1 :
-  parseInt(config['mongo-cache-seconds']),
-  client;
-
-let connect = bb.promisify(function(cb) {
-  if (client) {
-    return cb(null, client);
-  } else {
-    return MongoClient.connectAsync(config['mongo-url'])
-      .then(function(db) {
-        client = db.collection('issues');
-        console.log('ISSUES: connected to Mongo');
-        return cb(null, client);
-      })
-      .catch(cb);
-  }
-});
+let url = parse(config['mongo-url']);
+let db = monk('localhost:27017/atishoo');
+let issuesCollection = wrap(db.get('issues'));
 
 export function* get(ids) {
-  let db = yield connect();
-  let issues = yield db.find( { github_id: { $in: ids } } ).toArray();
+  let issues = yield issuesCollection.find( { github_id: { $in: ids } } );
   if (issues) {
     return issues;
   }
