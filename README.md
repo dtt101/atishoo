@@ -12,7 +12,6 @@ npm install -g nodemon
 npm i
 ```
 
-
 ## Develop
 
 ```
@@ -29,7 +28,24 @@ npm test
 
 TODO
 
-## Tasks
+## Endpoints
 
- * Endpoint to save extra data for an issue
- * Support multiple repos (front-end?)
+### GET /api/issues
+
+Returns github issues with augmented data
+
+### PATCH /api/issues/:id
+
+Save extra attributes using github issue id
+```
+{
+  "data": {
+    "type": "issues",
+    "id": "102616274",
+    "attributes": {
+      "points": 16,
+      "workflow": "in progress"
+    }
+  }
+}
+```
