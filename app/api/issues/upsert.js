@@ -1,8 +1,11 @@
-import * as github from '../../components/github';
+import * as issues from '../../components/issues';
 
 export default function* (next) {
-  // TODO: call upsert with github_id and data
-  // inserts a new or updates an existing augmented github issue
-  // findAndModify with monk or insert
+  let github_id = Number.parseInt(this.request.body.fields.data.id);
+  let data = this.request.body.fields.data.attributes;
+  let res = yield issues.upsert(github_id, data);
+  if (res === 1) {
+    this.status = 204;
+  }
   yield next;
 }

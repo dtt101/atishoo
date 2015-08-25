@@ -23,5 +23,10 @@ export function* filter(ids) {
 }
 
 export function* upsert(github_id, data) {
-  // TODO: create or save provided data on object matching github_id
+  let issuesCollection = yield * connect();
+  return yield issuesCollection.update(
+    {github_id: github_id},
+    {$set: data},
+    {upsert: true}
+  );
 }
