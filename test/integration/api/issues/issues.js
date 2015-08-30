@@ -2,6 +2,7 @@ import assert from 'assert';
 import sinon from 'sinon';
 import agent from 'supertest-koa-agent';
 import monk from 'monk';
+import co from 'co';
 import wrap from 'co-monk';
 import proxyquire from 'proxyquire';
 
@@ -30,6 +31,10 @@ client = wrap(db.get('issues'));
 
 describe('INTEGRATION issues', () => {
 
+	afterEach(function() {
+		co(cleanDb());
+	});
+
   describe('GET /api/issues', () => {
 
     before(() => {
@@ -48,22 +53,9 @@ describe('INTEGRATION issues', () => {
         });
     });
 
-    it('should return a list of issues with extra information', (done) => {
-      subject()
-        .get('/api/issues')
-        .expect(200)
-        .end((err, res) => {
-          assert.strictEqual(err, null);
-          assert.strictEqual(res.body[0].test, "test");
-          // assert.strictEqual(res.body[0].extra, 1); //TODO: insert into mongo
-          done(err);
-          });
-    });
   });
 
   describe('PATCH /api/issues/:id', () => {
-
-    // TODO: clean DB before and after, stub existing issue and test that too
 
     it('should patch an issue that does not exist in the local db', (done) => {
       subject()
@@ -82,4 +74,8 @@ function issuesList() {
     test: "test",
     github_id: 1
   }];
+}
+
+function* cleanDb() {
+  yield client.remove({});
 }
