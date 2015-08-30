@@ -1,1 +1,2 @@
+--require test/env
 --compilers js:babel/register
