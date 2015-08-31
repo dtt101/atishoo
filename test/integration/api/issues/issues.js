@@ -46,9 +46,8 @@ describe('INTEGRATION issues', () => {
       subject()
         .get('/api/issues')
         .expect(200)
+        .expect(issuesList)
         .end((err, res) => {
-          assert.strictEqual(err, null);
-          assert.strictEqual(res.body[0].test, "test");
           done(err);
         });
     });
